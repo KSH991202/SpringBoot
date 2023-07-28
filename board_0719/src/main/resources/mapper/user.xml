@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.board.user.UserDAO">
+
+<resultMap type="com.study.board.user.UserTblVO" id="userMap">
+    <result property="userId"   column="USERID" />
+    <result property="userPw"   column="USERPW" />
+    <result property="email"    column="EMAIL" />
+    <result property="name"     column="NAME"/>
+
+</resultMap>
+
+<select id="selectOneUser" resultMap="userMap">
+    SELECT * FROM USER_TBL WHERE USERID=#{userId}
+    <if test="userPw != null and userPw != ''" >
+    AND USERPW=#{userPw}
+    </if>
+</select>
+
+
+<select id="selectOneUserExist" resultMap="userMap">
+    SELECT * FROM USER_TBL WHERE USERID=#{userId}
+</select>
+
+<select id="selectOneUserEmail" resultMap="userMap">
+    SELECT * FROM USER_TBL WHERE EMAIL=#{email}
+</select>
+
+<insert id="insertOneUser">
+    INSERT INTO USER_TBL(USERID, USERPW, EMAIL, NAME) VALUES
+    (#{userId}, #{userPw}, #{email}, #{name})
+</insert>
+
+</mapper>
